@@ -22,7 +22,65 @@ public class App {
     * el mensaje: "Ocurrió un error inesperado".
     */
 
+   public static String Escribir_asc(int n1, int n2, int n3) {
 
+      try {
+         int numero_mayor = 0;
+         int numero_medio = 0;
+         int numero_menor = 0;
+
+         if (n1 == n2) {
+            return "Error: La función no considera números iguales";
+         } else if (n1 == n3) {
+            return "Error: La función no considera números iguales";
+         } else if (n2 == n1) {
+            return "Error: La función no considera números iguales";
+         } else if (n2 == n3) {
+            return "Error: La función no considera números iguales";
+         } else if (n3 == n1) {
+            return "Error: La función no considera números iguales";
+         } else if (n3 == n2) {
+            return "Error: La función no considera números iguales";
+         }
+
+         if (n1 <= n2 && n1 <= n3) {
+            numero_menor = n1;
+            if (n2 <= n3) {
+               numero_medio = n2;
+               numero_mayor = n3;
+            } else {
+               numero_medio = n3;
+               numero_mayor = n2;
+            }
+         } else if (n2 <= n1 && n2 <= n3) {
+            numero_menor = n2;
+            if (n1 <= n3) {
+               numero_medio = n1;
+               numero_mayor = n3;
+            } else {
+               numero_medio = n3;
+               numero_mayor = n1;
+            }
+         } else {
+            numero_menor = n3;
+            if (n1 <= n2) {
+               numero_medio = n1;
+               numero_mayor = n2;
+            } else {
+               numero_medio = n2;
+               numero_mayor = n1;
+            }
+         }
+
+         return numero_mayor + " - " + numero_medio + " - " + numero_menor;
+
+      }
+
+      catch (Exception e) {
+         return "Ocurrió un error inesperado";
+      }
+
+   }
 
    /*
     * 2. Construya un algoritmo e implemente la función en Java Obtener_cifras que
@@ -33,7 +91,25 @@ public class App {
     * 
     */
 
+   public static byte Obtener_cifras(int numero) {
 
+      byte cifras = 0;
+      final int n_min = 0, n_max = 50000;
+      try {
+
+         if (numero < n_min || numero > n_max) {
+            return 0;
+         }
+
+         String numeroString = String.valueOf(numero);
+         cifras = (byte) numeroString.length();
+         return cifras;
+
+      } catch (Exception e) {
+         return -1;
+      }
+
+   }
 
    /*
     * 3. Construya un algoritmo e implemente la función en Java Clasificar_char que
@@ -49,7 +125,21 @@ public class App {
     * 
     */
 
+   public static String Clasificar_char(char caracter) {
+      try {
+         int valorAscii = (int) caracter;
 
+         if ((valorAscii >= 65 && valorAscii <= 90) || (valorAscii >= 97 && valorAscii <= 122)) {
+            return "ES LETRA";
+         } else if (valorAscii >= 48 && valorAscii <= 57) {
+            return "ES NUMERO";
+         } else {
+            return "ESPECIAL";
+         }
+      } catch (Exception e) {
+         return "Ocurrió un error inesperado: " + e.getMessage();
+      }
+   }
 
    /*
     * 
@@ -70,18 +160,42 @@ public class App {
     * 
     */
 
-   
+   public static String Hallar_division_exacta(int num1, int num2) {
+
+      try {
+         String resultado = "";
+         int residuo = 0;
+         final byte cero = 0;
+
+         if (num1 <= cero || num2 <= cero)
+            return "NO SE ADMITE CERO O NEGATIVOS";
+
+         residuo = num1 % num2;
+
+         if (residuo == cero)
+            resultado = "DIVISION EXACTA";
+         else
+            resultado = "DIVISION NO EXACTA";
+         return resultado;
+
+      }
+
+      catch (Exception e) {
+         return "Ocurrió un error inesperado";
+      }
+
+   }
 
    /*
     * 5. En la siguiente tabla se encuentra la información de las habitaciones de
     * una finca hotel:
     * 
-    * Habitación Camas Planta    AA/VENTILADOR
-    *    101         2     Primera     AA
-    *    102         1     Primera     VE
-    *    201         3     Segunda     AA
-    *    202         2     Segunda     VE
-    *    301         2     Tercera     AA
+    * Habitación Camas Planta AA/VENTILADOR
+    * 101 2 Primera AA /////////
+    * 102 1 Primera VE /////////
+    * 201 3 Segunda AA /////////
+    * 202 2 Segunda VE
+    * 301 2 Tercera AA /////////
     * 
     * 
     * Construya un algoritmo e implemente la función en Java Consultar_hab que
@@ -97,8 +211,47 @@ public class App {
     * "Ocurrió un error inesperado".
     */
 
+   public static String Consultar_hab(byte nro_camas, String clase) {
 
-   
+      try {
+
+         String resultado = "";
+         final byte camas_min = 1, camas_max = 3;
+
+         if (nro_camas < camas_min || nro_camas > camas_max || (!clase.equals("AA") && !clase.equals("VE")))
+            return "DATOS NO VÁLIDOS";
+
+         switch (nro_camas) {
+            case 1:
+               if (clase.equals("VE"))
+                  resultado = "102";
+               break;
+            case 2:
+               switch (clase) {
+                  case "AA":
+                     resultado = "101|301";
+                     break;
+                  case "VE":
+                     resultado = "202";
+                     break;
+               }
+               break;
+            case 3:
+               if (clase.equals("AA"))
+                  resultado = "201";
+               break;
+         }
+
+         return resultado;
+
+      }
+
+      catch (Exception e) {
+         return "Ocurrió un error inesperado";
+      }
+
+   }
+
    /*
     * 
     * 6. Un restaurante vende 3 platos. Si el cliente solicita el plato 1, le dan
@@ -114,15 +267,37 @@ public class App {
     * "Ocurrió un error inesperado".
     */
 
+   public static String Obtener_obs(boolean plato1, boolean plato2, boolean plato3) {
 
+      try {
 
+         String resultado = "";
 
+         if (plato1 == false && plato2 == false && plato3 == false)
+            resultado = "PLATOS NO VÁLIDOS";
 
+         if (plato1 == true && plato2 == false && plato3 == false) {
+            resultado = "POSTRE";
+         } else if (plato1 == true && plato2 == true && plato3 == false) {
+            resultado = "BEBIDA";
+         } else if (plato1 == true && plato2 == true && plato3 == true) {
+            resultado = "BEBIDA Y POSTRE";
+         }
 
+         return resultado;
+
+      }
+
+      catch (Exception e) {
+         return "Ocurrió un error inesperado";
+
+      }
+
+   }
 
    /*
     * 7. Un grupo de amigos hace un sorteo semanalmente con pelotas de ping pong,
-    * para saber quién invita y a qué  la próxima salida.
+    * para saber quién invita y a qué la próxima salida.
     * Las opciones dependen del color que sacan en cada bola y son:
     * 
     * verde: Invita a las cervezas
@@ -142,3 +317,44 @@ public class App {
     * 
     */
 
+   public static String Conocer_invitacion(String color) {
+
+      try {
+
+         String resultado = "";
+
+         switch (color) {
+            case "verde":
+               resultado = "Invita a las cervezas"; 
+               break;
+            case "azul": 
+               resultado = "Invita a la pizza";
+               break;
+            case "rojo": 
+               resultado = "Invita al postre";
+               break;
+            case "amarillo":
+               resultado = "Paga el parqueadero de todos";
+               break;
+            case "negro": 
+               resultado = "Vaya y disfrute";
+               break;
+            case "blanco": 
+               resultado = "Vaya y disfrute";
+               break;
+            default:
+               resultado = "Error en el color";
+               break;
+         }
+
+         return resultado;
+
+      }
+
+      catch (Exception e) {
+         return "Ocurrió un error inesperado";
+
+      }
+
+   }
+}
